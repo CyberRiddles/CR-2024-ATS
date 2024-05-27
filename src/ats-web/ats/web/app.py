@@ -11,6 +11,7 @@ class WebApp(BaseApp):
     __server_port: int
 
     def __init__(self, server_ip: str = "127.0.0.1", server_port: int = 5000):
+        # Assign the function variables to the class instance
         self.__server_ip = server_ip
         self.__server_port = server_port
 
