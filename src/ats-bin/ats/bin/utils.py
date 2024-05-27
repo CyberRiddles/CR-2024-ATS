@@ -44,10 +44,8 @@ class LaunchArguments:
         """
         argument_parser: argparse.ArgumentParser = argparse.ArgumentParser()
         argument_parser.prog = "ats_launcher"
-        argument_parser.version = "1.0.0"
-        argument_parser.epilog = (
-            "For more information: https://github.com/Open-Shooting-Solutions"
-        )
+        argument_parser.version = "1.0.0"  # type: ignore
+        argument_parser.epilog = "For more information: https://github.com/CyberRiddles/cr-2024-ats/tree/main"
 
         argument_parser.add_argument(
             "-s",
