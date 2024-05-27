@@ -13,7 +13,7 @@ class BaseApp(ABC):
 
         Args:
             server_ip (str): The ip the server is hosted on.
-            server_port (int): The port the server listens to
+            server_port (int): The port the server listens on.
         Returns:
             None
         """

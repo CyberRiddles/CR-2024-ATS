@@ -1,6 +1,7 @@
 # Imports
 from ats.core.models.base.app import BaseApp
 from flask import Flask
+from gevent.pywsgi import WSGIServer
 
 
 class WebApp(BaseApp):
@@ -44,9 +45,8 @@ class WebApp(BaseApp):
         # Register the default flask route
         # flask_app.route()
 
-        # Start the flask app instance
-        flask_app.run(
-            host=self.__server_ip,
-            port=self.__server_port,
-            debug=False,
+        # Start the flask app instance via a gevent WSGIServer
+        http_server: WSGIServer = WSGIServer(
+            listener=(self.__server_ip, self.__server_port), application=flask_app
         )
+        http_server.serve_forever()
