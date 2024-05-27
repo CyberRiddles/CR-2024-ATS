@@ -28,7 +28,7 @@ bandit = "^1.7.8"
 flake8 = "^7.0.0"
 
 [tool.poetry.scripts]
-oss_launcher = "ats.bin.launcher:cli"
+ats_launcher = "ats.bin.launcher:cli"
 
 [build-system]
 requires = ["poetry-core"]
