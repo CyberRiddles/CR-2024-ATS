@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ats"
-version = "0.1.0"
+version = "1.0.0"
 description = "Almost the Same is Still Different"
 authors = ["Arnoud Stolk"]
 license = "GPL-3.0-or-later"
@@ -14,6 +14,8 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.11"
 flask = "^3.0.3"
+argparse = "^1.4.0"
+gevent = "^24.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
