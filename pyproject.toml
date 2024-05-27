@@ -5,6 +5,11 @@ description = "Almost the Same is Still Different"
 authors = ["Arnoud Stolk"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
+packages = [
+    {include="ats/bin", from="src/ats-bin"},
+    {include="ats/core", from="src/ats-core"},
+    {include="ats/web", from="src/ats-web"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -22,6 +27,28 @@ pydocstyle = "^6.3.0"
 bandit = "^1.7.8"
 flake8 = "^7.0.0"
 
+[tool.poetry.scripts]
+oss_launcher = "ats.bin.launcher:cli"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.bandit]
+exclude_dirs = [".venv", "dist", "build"]
+
+[tool.black]
+target-version = ['py311']
+
+[tool.isort]
+src_paths = ["myproj"]
+
+[tool.mypy]
+exclude = [".venv", "dist", "build"]
+disable_error_code = ["import-untyped"]
+
+[tool.pylint.messages_control]
+max-args = 7
+
+[tool.ruff]
+ignore = ['E501']
