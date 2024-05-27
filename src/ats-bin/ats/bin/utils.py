@@ -2,18 +2,27 @@
 
 # imports
 from __future__ import annotations
+import argparse
 import os
 from dataclasses import dataclass, fields
 
 
 @dataclass
 class LaunchArguments:
+    """A class for storing parsed launch arguments"""
+
     server_ip: str
     server_port: int
 
     @staticmethod
-    def __get_env() -> dict:
-        """Retrieves the local environment variables based on the class fields"""
+    def __get_env_arguments() -> dict:
+        """Retrieves the local environment variables based on the class fields
+
+        Args:
+
+        Returns:
+            dict: A dictionary containing the ENV arguments
+        """
         # Get the arguments from the os based on this dataclass fields
         env_arguments: dict = {
             field.name: os.getenv(field.name)
@@ -25,20 +34,70 @@ class LaunchArguments:
         return env_arguments
 
     @staticmethod
+    def __get_cli_arguments() -> dict:
+        """Retrieves the cli arguments that have been passed to the launcher
+
+        Args:
+
+        Returns:
+            dict: A dictionary containing the CLI arguments
+        """
+        argument_parser: argparse.ArgumentParser = argparse.ArgumentParser()
+        argument_parser.prog = "ats_launcher"
+        argument_parser.version = "1.0.0"
+        argument_parser.epilog = (
+            "For more information: https://github.com/Open-Shooting-Solutions"
+        )
+
+        argument_parser.add_argument(
+            "-s",
+            dest="server_ip",
+            action="store",
+            required=False,
+            type=str,
+            help="The ip the server is hosted on.",
+        )
+
+        argument_parser.add_argument(
+            "-p",
+            dest="server_port",
+            action="store",
+            required=False,
+            type=int,
+            help="The port the server listens on.",
+        )
+
+        cli_arguments: dict = vars(argument_parser.parse_args())
+        return cli_arguments
+
+    @staticmethod
     def get_arguments() -> LaunchArguments:
-        """"""
+        """Get the arguments from the ENV, Config and CLI
+
+        Parse the arguments from the ENV, Config and CLI in that order.
+        This means CLI has priority over ENV.
+
+        Args:
+
+        Returns:
+            LaunchArguments: A LaunchArguments instance that contains launch arguments
+        """
         # A dict that will store the arguments that have been retrieved
         arguments: dict = {}
 
         # Get environment arguments
-        env_arguments: dict = LaunchArguments.__get_env()
+        env_arguments: dict = LaunchArguments.__get_env_arguments()
         arguments.update(env_arguments)
 
         # Get config file arguments
         # <Not implemented for this puzzle>
 
         # Get cli arguments
-        # <Not implemented for this puzzle>
+        cli_arguments: dict = LaunchArguments.__get_cli_arguments()
+        arguments.update(cli_arguments)
 
+        # Convert the arguments dict to a LaunchArguments instance.
         launch_arguments: LaunchArguments = LaunchArguments(**arguments)
+
+        # Return the launch arguments
         return launch_arguments
