@@ -5,6 +5,8 @@ from gevent.pywsgi import WSGIServer
 
 
 class WebApp(BaseApp):
+    """A BaseAPP implementation for hosting the web app"""
+
     __server_ip: str
     __server_port: int
 
