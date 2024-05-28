@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: setup_poetry
         run: |
-          ls
+          cd ./cr-2024-ats
           pip install poetry
 
       - name: lint_python_black
