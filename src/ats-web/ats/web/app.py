@@ -1,5 +1,6 @@
 # Imports
 from ats.core.models.base.app import BaseApp
+from ats.web.pages.default import DefaultPageGenerator
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 
@@ -46,7 +47,11 @@ class WebApp(BaseApp):
         flask_app: Flask = Flask(__name__)
 
         # Register the default flask route
-        # flask_app.route()
+        flask_app.add_url_rule(
+            rule="/",
+            endpoint="default",
+            view_func=DefaultPageGenerator.generate_default_page,
+        )
 
         # Start the flask app instance via a gevent WSGIServer
         http_server: WSGIServer = WSGIServer(
