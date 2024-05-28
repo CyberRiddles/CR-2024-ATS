@@ -11,11 +11,11 @@ jobs:
       image: python:3.11-slim-bookworm
     steps:
       - name: lint_python_black
-        run:
+        run: |
           pip install black
           black --check ./
       - name: lint_python_flake
-        run:
+        run: |
           pip install flake8
           flake8 ./
   lint_container_file:
