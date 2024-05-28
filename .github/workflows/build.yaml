@@ -10,6 +10,11 @@ jobs:
     container:
       image: python:3.11-slim-bookworm
     steps:
+      - name: setup_poetry
+        run: |
+          ls
+          pip install poetry
+
       - name: lint_python_black
         run: |
           pip install black
