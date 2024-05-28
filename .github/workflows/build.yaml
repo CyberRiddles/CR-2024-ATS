@@ -9,13 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: python:3.11-slim-bookworm
-    defaults:
-      run:
-        working-directory: ./cr-2024-ats
     steps:
       - name: setup_poetry
         run: |
           pip install poetry
+          poetry --version
       - name: lint_python_black
         run: |
           poetry run black --check ./
