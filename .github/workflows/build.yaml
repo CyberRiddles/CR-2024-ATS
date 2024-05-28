@@ -9,20 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: python:3.11-slim-bookworm
+    defaults:
+      run:
+        working-directory: ./cr-2024-ats
     steps:
       - name: setup_poetry
         run: |
-          cd ./cr-2024-ats
           pip install poetry
-
       - name: lint_python_black
         run: |
-          pip install black
-          black --check ./
+          poetry run black --check ./
       - name: lint_python_flake
         run: |
-          pip install flake8
-          flake8 ./
+          poetry run flake8 ./
   lint_container_file:
     runs-on: self-hosted
     steps:
