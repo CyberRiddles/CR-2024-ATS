@@ -49,6 +49,8 @@ jobs:
     name: lint_container_file
     runs-on: ubuntu-latest
     steps:
+      - name: checkout_repo
+        uses: actions/checkout@v3
       - name: lint_docker
         uses: hadolint/hadolint-action@v3.1.0
         with:
