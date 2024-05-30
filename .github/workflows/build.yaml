@@ -48,12 +48,11 @@ jobs:
   lint_container_file:
     name: lint_container_file
     runs-on: ubuntu-latest
-    container:
-      image: hadolint/hadolint:latest
     steps:
       - name: lint_docker
-        run:
-          hadolint ./docker/Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./docker/Dockerfile
   build_python_package:
     name: build_python_package
     runs-on: ubuntu-latest
@@ -73,6 +72,7 @@ jobs:
           echo publish_package
   build_container_image:
     name: build_container_image
+    needs: [build_python_package]
     runs-on: ubuntu-latest
     container:
       image: python:3.11-slim-bookworm
