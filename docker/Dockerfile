@@ -1,4 +1,2 @@
-FROM ubuntu:latest
+FROM python:3.11-slim-bookworm
 LABEL authors="Arnoud Stolk"
-
-ENTRYPOINT ["top", "-b"]
