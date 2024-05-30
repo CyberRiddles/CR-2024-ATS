@@ -13,11 +13,13 @@ jobs:
     steps:
       - name: checkout_repo
         uses: actions/checkout@v3
-      - name: install_and_setup_poetry
+      - name: install_and_configure_poetry
         run: |
           pip install poetry
           poetry --version
           poetry config virtualenvs.in-project true
+      - name: install_python_package
+        run: |
           poetry install
       - name: lint_python_bandit
         run: |
@@ -47,11 +49,11 @@ jobs:
     name: lint_container_file
     runs-on: ubuntu-latest
     container:
-      image: python:3.11-slim-bookworm
+      image: hadolint/hadolint:latest
     steps:
       - name: lint_docker
         run:
-          echo !!!
+          hadolint ./docker/Dockerfile
   build_python_package:
     name: build_python_package
     runs-on: ubuntu-latest

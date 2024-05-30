@@ -143,7 +143,9 @@ class DefaultPageGenerator:
             row: list[dict] = []
             for width_index in range(grid_width):
                 grid_value = {
-                    "value": random.choice(string.ascii_lowercase + string.digits),
+                    "value": random.choice(
+                        string.ascii_lowercase + string.digits
+                    ),  # nosec B311
                     "different": False,
                 }
                 row.append(grid_value)
