@@ -33,7 +33,7 @@ jobs:
           poetry run flake8 ./src/
       - name: lint_python_mypy
         run: |
-          poetry run mypy ./src/
+          poetry run mypy ./src/ --explicit-package-bases
       - name: lint_python_pylint
         run: |
           poetry run pylint ./src/ --recursive=y
@@ -51,7 +51,7 @@ jobs:
           poetry run isort ./src/ --check
 
   lint_container_file:
-    name: lint_container_file
+    name: lint_container_build_file
     runs-on: ubuntu-latest
     steps:
       - name: checkout_repo
