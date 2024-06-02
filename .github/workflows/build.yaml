@@ -33,7 +33,7 @@ jobs:
           poetry run flake8 ./src/
       - name: lint_python_mypy
         run: |
-          poetry run mypy ./src/ --explicit-package-bases
+          poetry run mypy ./src/
       - name: lint_python_pylint
         run: |
           poetry run pylint ./src/ --recursive=y
