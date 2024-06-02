@@ -13,38 +13,43 @@ jobs:
     steps:
       - name: checkout_repo
         uses: actions/checkout@v4
-      - name: install_and_configure_poetry
+      - name: install_poetry
         run: |
           pip install poetry
           poetry --version
-          poetry config virtualenvs.in-project true
-      - name: install_python_package
+      - name: install_python_dependencies
         run: |
+          poetry config virtualenvs.in-project true
+          poetry update --only=dev
           poetry install
       - name: lint_python_bandit
         run: |
           poetry run bandit -c pyproject.toml -r .
       - name: lint_python_black
         run: |
-          poetry run black --check ./
+          poetry run black --check ./src/
       - name: lint_python_flake
         run: |
-          poetry run flake8 ./
+          poetry run flake8 ./src/
       - name: lint_python_mypy
         run: |
-          echo !!lint_python_mypy
+          poetry run mypy ./src/
       - name: lint_python_pylint
         run: |
-          echo !!lint_python_pylint
+          poetry run pylint ./src/ --recursive=y
       - name: lint_python_pyright
         run: |
-          echo !!lint_python_pyright
+          poetry run pyright ./src/
       - name: lint_python_ruff
         run: |
-          poetry run ruff check --config pyproject.toml ./
+          poetry run ruff check --config pyproject.toml ./src/
       - name: lint_documentation_pydocstyle
-        run:
-          echo !!lint_documentation_pydocstyle
+        run: |
+          poetry run pydocstyle
+      - name: lint_python_isort
+        run: |
+          poetry run isort ./src/ --check
+
   lint_container_file:
     name: lint_container_file
     runs-on: ubuntu-latest
@@ -55,6 +60,7 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: ./docker/Dockerfile
+
   build_python_package:
     name: build_python_package
     runs-on: ubuntu-latest
@@ -62,13 +68,21 @@ jobs:
       image: python:3.11-slim-bookworm
     needs: [lint_python_code, lint_container_file]
     steps:
-      - name: build_package
+      - name: checkout_repo
+        uses: actions/checkout@v4
+      - name: install_and_configure_poetry
+        run: |
+          pip install poetry
+          poetry --version
+      - name: install_and_configure_poetry
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run:
           export $APP_VERSION=$(poetry version --short)
-          poetry version $APP_VERSION
-          poetry repositories.github "http://aaa"
           poetry config virtualenvs.in-project true
-          poetry build
+          poetry config repositories.pypi-repo $PYPY_URL
+          poetry config pypi-token.pypi-repo $PYPY_TOKEN
+          poetry publish --build
       - name: publish_package
         run:
           echo publish_package

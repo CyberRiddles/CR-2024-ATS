@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ats"
+name = "cr-2024-ats"
 version = "1.0.0"
 description = "Almost the Same is Still Different"
 authors = ["Arnoud Stolk"]
@@ -43,7 +43,7 @@ exclude_dirs = [".venv", "dist", "build"]
 target-version = ['py311']
 
 [tool.isort]
-src_paths = ["myproj"]
+src_paths = ["src"]
 
 [tool.mypy]
 exclude = [".venv", "dist", "build"]
@@ -51,6 +51,9 @@ disable_error_code = ["import-untyped"]
 
 [tool.pylint.messages_control]
 max-args = 7
+
+[tool.pyright]
+reportMissingImports = true
 
 [tool.ruff]
 ignore = ['E501']
