@@ -63,5 +63,5 @@ max-line-length = 120
 reportMissingImports = true
 
 [tool.ruff]
-ignore = ['E501']
+lint.ignore = ['E501']
 line-length = 120

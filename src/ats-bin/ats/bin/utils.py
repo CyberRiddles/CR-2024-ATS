@@ -1,7 +1,9 @@
 """ats.bin.utils module."""
 
-# imports
+# future imports
 from __future__ import annotations
+
+# imports
 import argparse
 import os
 from dataclasses import dataclass, fields
