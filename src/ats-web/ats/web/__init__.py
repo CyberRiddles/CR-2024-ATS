@@ -1,3 +1,3 @@
-"""ats package"""
+"""ats web package."""
 
 name: str = "ats.web"

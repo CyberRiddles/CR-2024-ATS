@@ -1,3 +1,3 @@
-"""ats package"""
+"""ats bin package."""
 
 name: str = "ats.bin"

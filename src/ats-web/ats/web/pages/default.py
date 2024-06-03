@@ -1,20 +1,22 @@
+"""ats.web.pages.default module."""
+
 # Imports
 import random
 import string
 
 
 class DefaultPageGenerator:
+    """A generator class for generating the default page."""
 
     @staticmethod
     def generate_default_page() -> str:
-        """A generator for the default page
+        """Generate the default page.
 
         Args:
 
         Returns:
-            str: The generated HTML code
+            str: The generated HTML code.
         """
-
         random_2d_grid: list[list[dict]] = DefaultPageGenerator.__generate_grid()
         html_grid_elements: str = DefaultPageGenerator.__grid_to_html_elements(
             random_2d_grid
@@ -26,6 +28,13 @@ class DefaultPageGenerator:
 
     @staticmethod
     def __generate_grid() -> list[list[dict]]:
+        """Generate a 2d grid with random characters.
+
+        Args:
+
+        Returns:
+            list[list[dict]]: The generated 2d grid with random characters.
+        """
         chars: list[list[list[int]]] = [
             [
                 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -179,6 +188,14 @@ class DefaultPageGenerator:
 
     @staticmethod
     def __grid_to_html_elements(random_2d_grid: list[list[dict]]) -> str:
+        """Transform the 2d random grid into html elements.
+
+        Args:
+            random_2d_grid (list[list[dict]]): The random 2d grid.
+
+        Returns:
+            str: The transformed 2d grid into html elements.
+        """
         # Transform the 2d grid into a html page
         html_elements: str = ""
         color_a: str = "83,84,85"
@@ -199,7 +216,15 @@ class DefaultPageGenerator:
         return html_elements
 
     @staticmethod
-    def __insert_elements_in_template(html_elements: str):
+    def __insert_elements_in_template(html_elements: str) -> str:
+        """Insert html elements in a html page template.
+
+        Args:
+            html_elements: The html_elements that contain the random 2d grid characters.
+
+        Returns:
+            str: The html template that contains the inserted elements.
+        """
         html_template: str = """
         <html>
             <head>

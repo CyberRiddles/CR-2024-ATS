@@ -1,3 +1,5 @@
+"""ats.web.app module."""
+
 # Imports
 from ats.core.models.base.app import BaseApp
 from ats.web.pages.default import DefaultPageGenerator
@@ -6,12 +8,21 @@ from gevent.pywsgi import WSGIServer
 
 
 class WebApp(BaseApp):
-    """A BaseAPP implementation for hosting the web app"""
+    """A BaseAPP implementation for hosting the web app."""
 
     __server_ip: str
     __server_port: int
 
     def __init__(self, server_ip: str = "127.0.0.1", server_port: int = 5000):
+        """Initialize an WebAPP instance.
+
+        Args:
+            server_ip (str): The ip the server is hosted on.
+            server_port (int): The port the server listens on.
+
+        Returns:
+            None
+        """
         # Assign the function variables to the class instance
         self.__server_ip = server_ip
         self.__server_port = server_port
@@ -20,9 +31,9 @@ class WebApp(BaseApp):
         self.check_parameters()
 
     def check_parameters(self) -> None:
-        """Checks app parameters
+        """Check the APP run parameters.
 
-        Check the variables that have been passed to the app
+        Check the parameters that have been passed to the app.
 
         Args:
 
@@ -36,7 +47,7 @@ class WebApp(BaseApp):
             raise ValueError("Incorrect server port")
 
     def run(self) -> None:
-        """Start the app instance
+        """Start the app instance.
 
         Args:
 

@@ -1,3 +1,3 @@
-"""ats package"""
+"""ats core package."""
 
 name: str = "ats.core"

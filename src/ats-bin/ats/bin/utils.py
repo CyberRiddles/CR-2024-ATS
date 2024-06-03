@@ -1,4 +1,4 @@
-"""ATS launcher utilities"""
+"""ats.bin.utils module."""
 
 # imports
 from __future__ import annotations
@@ -9,19 +9,19 @@ from dataclasses import dataclass, fields
 
 @dataclass
 class LaunchArguments:
-    """A class for storing parsed launch arguments"""
+    """A class for storing parsed launch arguments."""
 
     server_ip: str
     server_port: int
 
     @staticmethod
     def __get_env_arguments() -> dict:
-        """Retrieves the local environment variables based on the class fields
+        """Retrieve the local environment variables based on the class fields.
 
         Args:
 
         Returns:
-            dict: A dictionary containing the ENV arguments
+            dict: A dictionary containing the ENV arguments.
         """
         # Get the arguments from the os based on this dataclass fields
         env_arguments: dict = {
@@ -35,12 +35,12 @@ class LaunchArguments:
 
     @staticmethod
     def __get_cli_arguments() -> dict:
-        """Retrieves the cli arguments that have been passed to the launcher
+        """Retrieve the cli arguments that have been passed to the launcher.
 
         Args:
 
         Returns:
-            dict: A dictionary containing the CLI arguments
+            dict: A dictionary containing the CLI arguments.
         """
         argument_parser: argparse.ArgumentParser = argparse.ArgumentParser()
         argument_parser.prog = "ats_launcher"
@@ -70,15 +70,15 @@ class LaunchArguments:
 
     @staticmethod
     def get_arguments() -> LaunchArguments:
-        """Get the arguments from the ENV, Config and CLI
+        """Get the arguments from the ENV, Config and CLI.
 
         Parse the arguments from the ENV, Config and CLI in that order.
-        This means CLI has priority over ENV.
+        This means CLI has priority over Config which has priority over CLI.
 
         Args:
 
         Returns:
-            LaunchArguments: A LaunchArguments instance that contains launch arguments
+            LaunchArguments: A LaunchArguments instance that contains launch arguments.
         """
         # A dict that will store the arguments that have been retrieved
         arguments: dict = {}
