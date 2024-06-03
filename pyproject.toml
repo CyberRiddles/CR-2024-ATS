@@ -44,11 +44,15 @@ target-version = ['py311']
 
 [tool.isort]
 src_paths = ["src"]
+profile = "black"
 
 [tool.mypy]
-exclude = [".venv", "dist", "build"]
 disable_error_code = ["import-untyped"]
-namespace_packages = true
+exclude = [".venv", "dist", "build"]
+mypy_path = "src"
+
+[tool.pydocstyle]
+ignore = ["D400", "D401", "D415"]
 
 [tool.pylint.messages_control]
 max-args = 7

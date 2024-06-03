@@ -27,13 +27,13 @@ jobs:
           poetry run bandit -c pyproject.toml -r .
       - name: lint_python_black
         run: |
-          poetry run black --check ./src/
+          poetry run black ./src/ --check --diff
       - name: lint_python_flake
         run: |
           poetry run flake8 ./src/
       - name: lint_python_mypy
-        run: |
-          poetry run mypy ./src/
+        run: | # MYPY cant handle my pkgutil-style structure. It "thinks" that my root namespace is called src
+          poetry run mypy -p src
       - name: lint_python_pylint
         run: |
           poetry run pylint ./src/ --recursive=y
@@ -48,7 +48,7 @@ jobs:
           poetry run pydocstyle
       - name: lint_python_isort
         run: |
-          poetry run isort ./src/ --check
+          poetry run isort ./src/ --check --dif
 
   lint_container_file:
     name: lint_container_build_file
