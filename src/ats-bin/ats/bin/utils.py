@@ -70,7 +70,7 @@ class LaunchArguments:
 
     @staticmethod
     def get_arguments() -> LaunchArguments:
-        """Get the arguments from the ENV, Config and CLI.
+        """Get the launch arguments from the ENV, Config and CLI.
 
         Parse the arguments from the ENV, Config and CLI in that order.
         This means CLI has priority over Config which has priority over CLI.
