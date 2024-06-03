@@ -25,9 +25,7 @@ class LaunchArguments:
         """
         # Get the arguments from the os based on this dataclass fields
         env_arguments: dict = {
-            field.name: os.getenv(field.name)
-            for field in fields(LaunchArguments)
-            if os.getenv(field.name) is not None
+            field.name: os.getenv(field.name) for field in fields(LaunchArguments) if os.getenv(field.name) is not None
         }
 
         # Return the arguments as dictionary

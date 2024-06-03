@@ -15,9 +15,7 @@ def main(launch_arguments: LaunchArguments) -> None:
         None
     """
     # Create a new instance of the WebAPP based on the BaseApp class
-    app: BaseApp = WebApp(
-        server_ip=launch_arguments.server_ip, server_port=launch_arguments.server_port
-    )
+    app: BaseApp = WebApp(server_ip=launch_arguments.server_ip, server_port=launch_arguments.server_port)
 
     # Start the app
     app.run()

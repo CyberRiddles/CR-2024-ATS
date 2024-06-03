@@ -65,7 +65,5 @@ class WebApp(BaseApp):
         )
 
         # Start the flask app instance via a gevent WSGIServer
-        http_server: WSGIServer = WSGIServer(
-            listener=(self.__server_ip, self.__server_port), application=flask_app
-        )
+        http_server: WSGIServer = WSGIServer(listener=(self.__server_ip, self.__server_port), application=flask_app)
         http_server.serve_forever()

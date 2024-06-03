@@ -18,12 +18,8 @@ class DefaultPageGenerator:
             str: The generated HTML code.
         """
         random_2d_grid: list[list[dict]] = DefaultPageGenerator.__generate_grid()
-        html_grid_elements: str = DefaultPageGenerator.__grid_to_html_elements(
-            random_2d_grid
-        )
-        html_output: str = DefaultPageGenerator.__insert_elements_in_template(
-            html_grid_elements
-        )
+        html_grid_elements: str = DefaultPageGenerator.__grid_to_html_elements(random_2d_grid)
+        html_output: str = DefaultPageGenerator.__insert_elements_in_template(html_grid_elements)
         return html_output
 
     @staticmethod
@@ -138,13 +134,9 @@ class DefaultPageGenerator:
         #  The needed empty space between characters * the number of characters -1 because we only need height between characters
         #  2 * the space between characters to add lines before the first and after the last character
         grid_height: int = (
-            (char_height * number_of_chars)
-            + (space_between_chars * (number_of_chars - 1))
-            + (2 * space_between_chars)
+            (char_height * number_of_chars) + (space_between_chars * (number_of_chars - 1)) + (2 * space_between_chars)
         )
-        grid_width: int = (
-            80  # Number of characters width. This needs to be a even number!
-        )
+        grid_width: int = 80  # Number of characters width. This needs to be a even number!
 
         # Create a 2 dimensional list that contains random letters and numbers
         random_2d_grid: list[list[dict]] = []
@@ -152,9 +144,7 @@ class DefaultPageGenerator:
             row: list[dict] = []
             for width_index in range(grid_width):
                 grid_value = {
-                    "value": random.choice(
-                        string.ascii_lowercase + string.digits
-                    ),  # nosec B311
+                    "value": random.choice(string.ascii_lowercase + string.digits),  # nosec B311
                     "different": False,
                 }
                 row.append(grid_value)
@@ -165,16 +155,10 @@ class DefaultPageGenerator:
 
         # Loop through the chars that need to be inserted
         for index, letter in enumerate(chars):
-            half_grid_index: int = int(
-                grid_width / 2
-            )  # Get the index of the middle of the grid
+            half_grid_index: int = int(grid_width / 2)  # Get the index of the middle of the grid
 
             # The start position in the grid
-            start_position = (
-                (char_height * index)
-                + (space_between_chars * (index - 1))
-                + (2 * space_between_chars)
-            )
+            start_position = (char_height * index) + (space_between_chars * (index - 1)) + (2 * space_between_chars)
 
             # Loop through the letters to generate
             for index, line_positions in enumerate(letter):
@@ -207,9 +191,7 @@ class DefaultPageGenerator:
                     color = color_a
                 else:
                     color = color_b
-                html_element = (
-                    f'<span style="color: rgb({color});">{char_dict["value"]}</span>'
-                )
+                html_element = f'<span style="color: rgb({color});">{char_dict["value"]}</span>'
                 html_elements = html_elements + html_element
             html_element = "<br>"
             html_elements = html_elements + html_element
