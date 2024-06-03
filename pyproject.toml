@@ -33,21 +33,21 @@ flake8 = "^7.0.0"
 ats_launcher = "ats.bin.launcher:cli"
 
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
 
 [tool.bandit]
 exclude_dirs = [".venv", "dist", "build"]
 
 [tool.black]
+line-length = 120
 target-version = ['py311']
 
 [tool.isort]
-src_paths = ["src"]
 profile = "black"
+src_paths = ["src"]
 
 [tool.mypy]
-disable_error_code = ["import-untyped"]
 exclude = [".venv", "dist", "build"]
 mypy_path = "src"
 
@@ -56,9 +56,11 @@ convention = "google"
 
 [tool.pylint.messages_control]
 max-args = 7
+max-line-length = 120
 
 [tool.pyright]
 reportMissingImports = true
 
 [tool.ruff]
 ignore = ['E501']
+line-length = 120

@@ -14,40 +14,40 @@ jobs:
       - name: checkout_repo
         uses: actions/checkout@v4
       - name: install_poetry
-        run: |
+        run: | # Install poetry and check it works
           pip install poetry
           poetry --version
       - name: install_python_dependencies
-        run: |
+        run: | # Install the dependencies but update the dev dependencies because they are linters and type hints
           poetry config virtualenvs.in-project true
           poetry update --only=dev
           poetry install
       - name: lint_python_bandit
-        run: |
+        run: | # Linter for security issues like secrets and pseudo random numbers in the code.
           poetry run bandit -c pyproject.toml -r .
       - name: lint_python_black
-        run: |
+        run: | # General code linter
           poetry run black ./src/ --check --diff
       - name: lint_python_flake
-        run: |
+        run: | # General code linter
           poetry run flake8 ./src/
       - name: lint_python_mypy
         run: | # MYPY cant handle my pkgutil-style structure. It "thinks" that my root namespace is called src
           poetry run mypy -p src
       - name: lint_python_pylint
-        run: |
+        run: | # General code linter
           poetry run pylint ./src/ --recursive=y
       - name: lint_python_pyright
-        run: |
+        run: | # General code linter focus on types
           poetry run pyright ./src/
       - name: lint_python_ruff
-        run: |
+        run: | # General code linter
           poetry run ruff check --config pyproject.toml ./src/
       - name: lint_documentation_pydocstyle
-        run: |
+        run: | # Docstring linter
           poetry run pydocstyle ./src/
       - name: lint_python_isort
-        run: |
+        run: | # Import sorting linter
           poetry run isort ./src/ --check --dif
 
   lint_container_file:
@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v4
       - name: lint_docker
         uses: hadolint/hadolint-action@v3.1.0
-        with:
+        with: # Lint the docker file for style and security issues
           dockerfile: ./docker/Dockerfile
 
   build_python_package:
@@ -71,21 +71,21 @@ jobs:
       - name: checkout_repo
         uses: actions/checkout@v4
       - name: install_and_configure_poetry
-        run: |
+        run: | # Install poetry and check it works
           pip install poetry
           poetry --version
       - name: install_and_configure_poetry
+        run:
+          poetry config virtualenvs.in-project true
+          poetry install
+      - name: publish_package
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run:
+        run: # Install the dependencies and build the package with sub packages
           export $APP_VERSION=$(poetry version --short)
-          poetry config virtualenvs.in-project true
           poetry config repositories.pypi-repo $PYPY_URL
           poetry config pypi-token.pypi-repo $PYPY_TOKEN
           poetry publish --build
-      - name: publish_package
-        run:
-          echo publish_package
   build_container_image:
     name: build_container_image
     needs: [build_python_package]
