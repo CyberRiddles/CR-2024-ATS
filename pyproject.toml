@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cr-2024-ats"
-version = "1.0.0"
+version = "0.0.1"
 description = "Almost the Same is Still Different"
 authors = ["Arnoud Stolk"]
 license = "GPL-3.0-or-later"

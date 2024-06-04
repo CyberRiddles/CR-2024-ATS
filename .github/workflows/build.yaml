@@ -32,7 +32,7 @@ jobs:
         run: | # General code linter
           poetry run flake8 ./src/
       - name: lint_python_mypy
-        run: | # MYPY cant handle my pkgutil-style structure. It "thinks" that my root namespace is called src
+        run: | # MYPY cant handle my pkgutil-style structure. It "thinks" that my root namespace is called "src"
           poetry run mypy -p src
       - name: lint_python_pylint
         run: | # General code linter
