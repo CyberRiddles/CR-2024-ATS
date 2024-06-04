@@ -75,16 +75,19 @@ jobs:
           pip install poetry
           poetry --version
       - name: install_and_configure_poetry
-        run:
+        run: | # Configure Poetry and install the package dependencies
           poetry config virtualenvs.in-project true
           poetry install
       - name: publish_package
         env:
+          PYPI_URL: ${{ vars.PYPI_URL}}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: # Install the dependencies and build the package with sub packages
-          export $APP_VERSION=$(poetry version --short)
-          poetry config repositories.pypi-repo $PYPY_URL
-          poetry config pypi-token.pypi-repo $PYPY_TOKEN
+        run: | # Build the package with sub packages
+          export $APP_VERSION=$(poetry version --short) + "." + GITHUB_SHA
+          echo $APP_VERSION
+          poetry version $APP_VERSION
+          poetry config repositories.pypi-repo $PYPI_URL
+          poetry config pypi-token.pypi-repo $PYPI_TOKEN
           poetry publish --build
   build_container_image:
     name: build_container_image
