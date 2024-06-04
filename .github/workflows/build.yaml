@@ -82,7 +82,7 @@ jobs:
         env:
           PYPI_URL: ${{ vars.PYPI_URL}}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: | # Build the package with sub packages
+        run: | # Build and publish the package with all the namespace packages
           export POETRY_APP_VERSION=$(poetry version --short)
           poetry version $POETRY_APP_VERSION
           poetry config repositories.pypi $PYPI_URL
@@ -92,9 +92,16 @@ jobs:
     name: build_container_image
     needs: [build_python_package]
     runs-on: ubuntu-latest
-    container:
-      image: python:3.11-slim-bookworm
     steps:
-      - name: build_image
+      - name: checkout_repo
+        uses: actions/checkout@v4
+      - name: get_docker_buildx
+        uses: docker/setup-buildx-action@v3
+      - name: build_container_image
         run:
-          echo build container image!
+          docker buildx build
+            --platform linux/amd64,linux/arm64
+            --file docker/Dockerfile
+            --tag your-image-name:latest
+            .
+
