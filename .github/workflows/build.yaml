@@ -84,7 +84,6 @@ jobs:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: | # Build the package with sub packages
           export POETRY_APP_VERSION=$(poetry version --short)
-          export POETRY_APP_VERSION="${POETRY_APP_VERSION}.${GITHUB_SHA}"
           poetry version $POETRY_APP_VERSION
           poetry config repositories.pypi-repo $PYPI_URL
           poetry config pypi-token.pypi-repo $PYPI_TOKEN
