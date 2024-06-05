@@ -102,6 +102,6 @@ jobs:
           docker buildx build
             --platform linux/amd64,linux/arm64
             --file docker/Dockerfile
-            --tag your-image-name:latest
+            --tag cr-2024-ats:latest
             .
 
