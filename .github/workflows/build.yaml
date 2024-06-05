@@ -99,9 +99,14 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: build_container_image
         run:
-          docker buildx build
-            --platform linux/amd64,linux/arm64
-            --file docker/Dockerfile
-            --tag cr-2024-ats:latest
-            .
+            docker buildx build
+              --platform linux/amd64
+              --file docker/Dockerfile
+              --tag cr-2024-ats:test
+              .
+              --build-arg PYTHON_PACKAGE_NAMES=cr-2024-ats
+              --build-arg APP_NAME=cr-2024-ats 
+              --build-arg APP_BIN_NAME=ats_launcher
+              --build-arg APP_BIN_ARGS="-s 0.0.0.0 -p 5000"
+              --build-arg APP_USERNAME=riddle
 
