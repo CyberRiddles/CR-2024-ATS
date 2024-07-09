@@ -99,14 +99,22 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: build_container_image
         run:
-            docker buildx build
-              --platform linux/amd64
-              --file docker/Dockerfile
-              --tag cr-2024-ats:test
-              .
-              --build-arg PYTHON_PACKAGE_NAMES=cr-2024-ats
-              --build-arg APP_NAME=cr-2024-ats 
-              --build-arg APP_BIN_NAME=ats_launcher
-              --build-arg APP_BIN_ARGS="-s 0.0.0.0 -p 5000"
-              --build-arg APP_USERNAME=riddle
-
+          docker buildx build
+            --platform linux/amd64,linux/arm64,windows/amd64,darwin/amd64,darwin/arm64
+            --file docker/Dockerfile
+            --tag cr-2024-ats:test
+            .
+            --build-arg APP_BIN_NAME="ats_launcher"
+            --build-arg APP_BIN_ARGS="-s 0.0.0.0 -p 5000"
+            --build-arg APP_DESCRIPTION="A cyber security riddle called Almost the same is still different."
+            --build-arg APP_LICENSE="GPL-3.0-or-later"
+            --build-arg APP_MAINTAINER="Arnoud Stolk <aaaa>"
+            --build-arg APP_NAME="cr-2024-ats"
+            --build-arg APP_TITLE="Almost the same is still different"
+            --build-arg APP_VCS_COMMITHASH="test1234"
+            --build-arg APP_VCS_URL="https://github.com/CyberRiddles/cr-2024-ats"
+            --build-arg APP_VENDOR="CyberRiddles"
+            --build-arg APP_VERSION="0.0.1"
+            --build-arg IMAGE_BUILDDATETIME="2024-06-11T20:16:30Z"
+            --build-arg PYTHON_PACKAGE_NAMES="cr-2024-ats"
+            --build-arg RUNTIME_USERNAME="riddle"

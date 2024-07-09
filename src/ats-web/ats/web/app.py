@@ -41,10 +41,13 @@ class WebApp(BaseApp):
             None
         """
         if not self.__server_ip or self.__server_ip == "":
-            raise ValueError("Incorrect server ip")
+            raise ValueError("Incorrect or no server ip")
 
-        if not self.__server_port or self.__server_port <= 0:
-            raise ValueError("Incorrect server port")
+        if not self.__server_port:
+            raise ValueError("Incorrect or no server port")
+
+        if self.__server_port < 1024 or self.__server_port > 49151:
+            raise ValueError("Port not in range 1024-49151")
 
     def run(self) -> None:
         """Start the app instance.

@@ -53,6 +53,7 @@ class LaunchArguments:
             action="store",
             required=False,
             type=str,
+            default="127.0.0.1",
             help="The ip the server is hosted on.",
         )
 
@@ -62,6 +63,7 @@ class LaunchArguments:
             action="store",
             required=False,
             type=int,
+            default=5000,
             help="The port the server listens on.",
         )
 
